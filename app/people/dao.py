@@ -44,14 +44,12 @@ class PeopleDAO:
 
     @staticmethod
     async def update_person(people_id: int, data: dict):
-        # Проверка существования человека
         person_exists = await Database.execute(
             "SELECT 1 FROM people WHERE id = $1", people_id, fetchval=True
         )
         if not person_exists:
             raise NotFindPersonException
 
-        # Обновление полей
         fields, values = [], []
         index = 1
         for key in ["name", "surname", "patronymic", "age", "gender", "nationality"]:
@@ -65,7 +63,6 @@ class PeopleDAO:
             values.append(people_id)
             await Database.execute(query, *values)
 
-        # Получение обновлённого пользователя
         row = await Database.execute(
             """
             SELECT id, name, surname, patronymic, age, gender, nationality
@@ -84,7 +81,6 @@ class PeopleDAO:
 
         async with Database.pool.acquire() as conn:
             async with conn.transaction():
-                # Вставка нового человека
                 people_id = await conn.fetchval(
                     """
                     INSERT INTO people (name, surname, patronymic, age, gender, nationality)
@@ -99,7 +95,6 @@ class PeopleDAO:
                     external["nationality"],
                 )
 
-                # Вставка email'ов
                 if data.get("emails"):
                     for email in data["emails"]:
                         existing_email = await conn.fetchval(
@@ -115,7 +110,6 @@ class PeopleDAO:
                             email["email"],
                         )
 
-        # Получаем полную информацию о человеке с email'ами
         row = await Database.execute(
             """
             SELECT p.id, p.name, p.surname, p.patronymic, p.age, p.gender, p.nationality,
@@ -130,7 +124,6 @@ class PeopleDAO:
             fetchrow=True,
         )
 
-        # Возвращаем сериализованный ответ
         return SPersonOut(**{**dict(row), "emails": json.loads(row["emails"])})
 
     # ДАЛЬШЕ ЗАПРОСЫ VERSION 2

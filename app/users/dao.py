@@ -16,7 +16,6 @@ class UsersDAO:
         external = await fetch_person_data(user.name)
         async with Database.pool.acquire() as conn:
             async with conn.transaction():
-                # 1) вставляем в people
                 person_id = await conn.fetchval(
                     """
                     INSERT INTO people (name, surname, patronymic, age, gender, nationality)
@@ -31,7 +30,6 @@ class UsersDAO:
                     external["nationality"],
                 )
 
-                # 2) вставляем в users
                 try:
                     await conn.execute(
                         """
@@ -45,7 +43,6 @@ class UsersDAO:
                 except UniqueViolationError:
                     raise
 
-                # 3) вставляем в emails
                 await conn.execute(
                     """
                     INSERT INTO emails (person_id, email)

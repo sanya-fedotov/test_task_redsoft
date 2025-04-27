@@ -79,6 +79,5 @@ class SPersonCreate(BaseModel):
     def validate_emails(cls, v):
         if not v:
             return None
-        # Фильтруем пустые или дефолтные почты
         cleaned = [email for email in v if email.email != "user@example.com"]
         return cleaned or None  # если после очистки ничего нет, вернем None

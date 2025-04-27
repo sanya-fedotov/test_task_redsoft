@@ -40,12 +40,10 @@ async def find_by_surname(surname: str = Query(...)) -> List[schemas.SPersonOut]
     Выводит всю по фамилии сводную информацию
     """
 
-    # Проверяем правильности фамилии
     if not re.fullmatch(r"[A-Za-z]+", surname):
         raise InvalidSurnameFormatException
     result = await PeopleDAO.find_by_surname(surname)
 
-    # Проверяем наличие пользователя
     if not result:
         raise NotFindSurnameException
     return result
@@ -108,12 +106,10 @@ async def find_by_surname_with_cache(
     Выводит всю по фамилии сводную информацию
     """
 
-    # Проверяем правильности фамилии
     if not re.fullmatch(r"[A-Za-z]+", surname):
         raise InvalidSurnameFormatException
     result = await PeopleDAO.find_by_surname_with_delay(surname)
 
-    # Проверяем наличие пользователя
     if not result:
         raise NotFindSurnameException
     return result
