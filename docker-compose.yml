@@ -5,7 +5,7 @@ services:
     image: postgres:16
     container_name: redsoft_db
     env_file:
-      - .env-bd
+      - .env
     ports:
       - "5432:5432"
     volumes:
@@ -22,12 +22,8 @@ services:
     depends_on:
       - db
       - redis
-    environment:
-      DB_HOST: db
-      DB_PORT: 5432
-      DB_USER: postgres
-      DB_PASS: postgres
-      DB_NAME: postgres
+    env_file:
+      - .env
     volumes:
       - .:/app
     command: bash -c "sleep 5 && python seed.py && gunicorn app.main:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind=0.0.0.0:8000"  
