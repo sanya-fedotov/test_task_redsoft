@@ -1,2 +1,2 @@
-grafana-dashboard.json
-prometheus.yml
+.env
+.env-db
