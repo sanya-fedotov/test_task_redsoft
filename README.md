@@ -18,7 +18,8 @@
 - Добавление email-адреса для одного пользователя
 - Организация дружеских связей между пользователями
 - Получение списка друзей пользователя
-  ![](https://disk.yandex.ru/i/CmYIzSsj-9hXgg)
+![Image](https://github.com/user-attachments/assets/6047b517-9b79-42d4-a73a-54100d7d25ce)
+
   
 **Дополнительно во второй версии проекта:**
 
@@ -26,7 +27,7 @@
 - Аутентификация и авторизация пользователей (JWT)
 - Метрики для мониторинга с использованием Prometheus
 - Визуализация метрик через Grafana
-![](https://disk.yandex.ru/i/aib6tzg11pWtxg)
+![Image](https://github.com/user-attachments/assets/04fca8a6-9c7b-4cd0-9db8-e19802ceac73)
 
 ---
 
