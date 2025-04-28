@@ -5,7 +5,7 @@ services:
     image: postgres:16
     container_name: redsoft_db
     env_file:
-      - .env-non-dev
+      - .env-bd
     ports:
       - "5432:5432"
     volumes:
